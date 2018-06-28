@@ -405,6 +405,10 @@ define([
 			this._stopPopupTimer();
 
 			if(this.currentPopupItem){
+				// Close all popups that are open and descendants of this menu
+				this.currentPopupItem._closePopup();
+				this.currentPopupItem = null;
+
 				// If focus is on a descendant MenuItem then move focus to me,
 				// because IE doesn't like it when you display:none a node with focus,
 				// and also so keyboard users don't lose control.
@@ -414,10 +418,6 @@ define([
 					domAttr.set(this.selected.focusNode, "tabIndex", this.tabIndex);
 					this.selected.focusNode.focus();
 				}
-
-				// Close all popups that are open and descendants of this menu
-				this.currentPopupItem._closePopup();
-				this.currentPopupItem = null;
 			}
 		},
 
